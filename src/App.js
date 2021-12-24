@@ -3,6 +3,7 @@ import './App.css';
 import React, { Component } from 'react'
 import CRUD from './Api/crud'
 import Spinner from './Components/Spinner.js'
+import Form from './Components/Form.js'
 
 
 
@@ -11,6 +12,7 @@ class App extends Component {
     data:[],errorMsg:'',
   isLoading: true,
   selectedVehicle:{},
+  newVehicle:{},
   isNew:false,
 }
 
@@ -32,7 +34,7 @@ class App extends Component {
     displayVehicles=() =>{
       return(
 
-        <div className="App">
+        <div className="display">
             <h1> Vehicle List API</h1>
             <table border="1">
               <tbody>
@@ -42,7 +44,7 @@ class App extends Component {
                   <td> Model</td>
                   <td> Type</td>
                   <td> Color</td>
-                  <button onClick={() => this.createNew()}>Add New</button>
+                  <button onClick={() => this.setState({isNew:true})}>Add New</button>
                 </tr>
                 { 
             this.state.data
@@ -88,8 +90,19 @@ class App extends Component {
                
       
     }
-    createNew = async (id)=>{
-        this.setState({isNew:true})
+    createNew = async (childData)=>{
+        this.setState({newVehicle:childData})
+
+        console.log("create new", childData)
+  try{
+        const { data } = await CRUD.post("/Vehicles/", childData);
+        this.setState((state) => {
+        return { data: [...state.data, data] };
+        }); 
+
+      } catch (e) {
+        this.setState({ errorMsg: e.message });
+      }
     }
 
 /****************************************************************
@@ -144,8 +157,14 @@ class App extends Component {
  */
   render() {
     return (
-      <div className='ui container'>
+      <div className='App'>
         {this.state.isLoading? <Spinner/> : this.displayVehicles()}
+       
+        <div>
+          { this.state.isNew && 
+          <Form parentCallback ={this.createNew}/>
+          }
+          </div>
       </div>
     )
   }
