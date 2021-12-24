@@ -1,7 +1,8 @@
 
 import './App.css';
 import React, { Component } from 'react'
-import CRUD from '../src/API/Data'
+import CRUD from './Api/crud'
+
 
 class App extends Component {
   state={data:[],errorMsg:''}
@@ -14,6 +15,7 @@ class App extends Component {
         catch (err) {
             this.setState ({errorMsg:err.message})
         }
+        console.log(this.state.data)
     }
 
   render() {
