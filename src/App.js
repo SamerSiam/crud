@@ -33,11 +33,13 @@ class App extends Component {
  */
     displayVehicles=() =>{
       return(
-
+        
         <div className="display">
-            <h1> Vehicle List API</h1>
+          
             <table border="1">
-              <tbody>
+             
+          <tbody>
+          <div className="heading"> <h1> Vehicle List API</h1></div>
                 <tr>
                   <td> ID</td>
                   <td> Name</td>
@@ -160,7 +162,7 @@ class App extends Component {
       <div className='App'>
         {this.state.isLoading? <Spinner/> : this.displayVehicles()}
        
-        <div>
+        <div className="newItem">
           { this.state.isNew && 
           <Form parentCallback ={this.createNew}/>
           }

@@ -1,18 +1,25 @@
 .App {
   text-align: center;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 
 .display{
+  margin-top: 2vw;;
   width: 80%;
+  display: flex;
+}
+.heading{
+  text-align: center;
+ 
 }
 
 .update-vehicle {
   margin: 10px;
   padding: 10px;
   width: 22%;
+  height: 35vh;
   border: 1px solid blue;
   text-align: center;
 }
